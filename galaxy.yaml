@@ -1,0 +1,7 @@
+- name: Enable Galaxy Repos
+  hosts: localhost
+  connection: local
+  gather_facts: false # remove later! speeds up testing
+  become: true
+  roles:
+    - { role: "mustafa.cofigure.galaxy" }

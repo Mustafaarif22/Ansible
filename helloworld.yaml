@@ -1,0 +1,28 @@
+- name: Configure Repos
+  hosts: all
+  gather_facts: false # remove later! speeds up testing
+  become: true
+  roles:
+    - { role: "mustafa.configure_repo" }
+
+- name: Install, Configure and Start HA Proxy
+  hosts: frontends
+  gather_facts: false
+  become: true
+  roles:
+    - { role: "mustafa.haproxy" }
+
+
+- name: Install, Configure and Start Tomcat
+  hosts: apps
+  gather_facts: false
+  become: true
+  roles:
+    - { role: "mustafa.tomcat" }
+
+- name: Deploy postgres
+  hosts: appdbs
+  gather_facts: true
+  become: true
+  roles:
+    - { role: "geerlingguy.postgresql" }
